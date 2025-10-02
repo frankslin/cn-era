@@ -80,7 +80,7 @@ import { convertYear } from 'cn-era';
 convertYear(690);
 // [
 //   { dynasty: '唐', reign_title: '載初', year_num: '二年' },
-//   { dynasty: '周', reign_title: '天授', year_num: '元年' }
+//   { dynasty: '武周', reign_title: '天授', year_num: '元年' }
 // ]
 
 // Republic of China era (post-1912)

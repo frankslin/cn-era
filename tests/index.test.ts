@@ -32,7 +32,7 @@ describe('convertYear', () => {
       year_num: '二年',
     });
     expect(result).toContainEqual({
-      dynasty: '周',
+      dynasty: '武周',
       reign_title: '天授',
       year_num: '元年',
     });
