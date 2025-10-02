@@ -1,0 +1,55 @@
+{
+  "name": "cn-era",
+  "version": "0.1.0",
+  "description": "Convert Gregorian years into Chinese historical era names. 将公元年份转换为中国历史年号纪年",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "chinese",
+    "era",
+    "reign",
+    "dynasty",
+    "year",
+    "converter",
+    "历史",
+    "年号",
+    "朝代"
+  ],
+  "author": "Frank Lin",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frankslin/cn-era.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frankslin/cn-era/issues"
+  },
+  "homepage": "https://github.com/frankslin/cn-era#readme"
+}

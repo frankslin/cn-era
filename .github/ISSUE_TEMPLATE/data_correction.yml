@@ -1,0 +1,59 @@
+name: Data Correction
+description: Report incorrect historical era data
+title: "[Data]: "
+labels: ["data", "correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our historical data accuracy!
+
+  - type: input
+    id: year
+    attributes:
+      label: Year
+      description: Which year has incorrect data?
+      placeholder: "618"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Data
+      description: What data is currently returned?
+      placeholder: |
+        [{dynasty: '唐', reign_title: '武德', year_num: '元年'}]
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct
+    attributes:
+      label: Correct Data
+      description: What should the correct data be?
+      placeholder: |
+        [{dynasty: '唐', reign_title: '武德', year_num: '元年'}]
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Historical Source
+      description: Please provide reliable historical sources for this correction
+      placeholder: |
+        - 《資治通鑑》卷XXX
+        - Wikipedia: https://...
+        - CBDB: https://...
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context about this correction
+      placeholder: This era name was changed in...
+    validations:
+      required: false
