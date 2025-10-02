@@ -2,18 +2,83 @@ import { describe, it, expect } from 'vitest';
 import { convertYear } from '../src/index';
 
 describe('convertYear', () => {
-  it('应该正确转换唐朝武德元年', () => {
-    const result = convertYear(618);
-    expect(result).toEqual([
-      { dynasty: '唐', reign_title: '武德', year_num: '元年' },
-    ]);
-  });
-
   it('应该正确转换唐朝武德三年', () => {
     const result = convertYear(620);
     expect(result).toEqual([
       { dynasty: '唐', reign_title: '武德', year_num: '三年' },
     ]);
+  });
+
+  // Sui Dynasty tests
+  describe('Sui Dynasty', () => {
+    it('should correct convert to the first year of the Sui Dynasty', () => {
+      const result = convertYear(581);
+      expect(result).toEqual([
+        { dynasty: '隋', reign_title: '開皇', year_num: '元年' },
+      ]);
+    });
+
+    it('should correct convert to a year in the Renshou reign', () => {
+      const result = convertYear(602);
+      expect(result).toEqual([
+        { dynasty: '隋', reign_title: '仁壽', year_num: '二年' },
+      ]);
+    });
+
+    it('should handle the year 617 with multiple reign titles', () => {
+      const result = convertYear(617);
+      expect(result).toHaveLength(2);
+      expect(result).toContainEqual({
+        dynasty: '隋',
+        reign_title: '大業',
+        year_num: '十三年',
+      });
+      expect(result).toContainEqual({
+        dynasty: '隋',
+        reign_title: '義寧',
+        year_num: '元年',
+      });
+    });
+
+    it('should handle the complex transitions in the year 618', () => {
+      const result = convertYear(618);
+      expect(result).toHaveLength(4);
+      expect(result).toContainEqual({
+        dynasty: '隋',
+        reign_title: '大業',
+        year_num: '十四年',
+      });
+      expect(result).toContainEqual({
+        dynasty: '隋',
+        reign_title: '義寧',
+        year_num: '二年',
+      });
+      expect(result).toContainEqual({
+        dynasty: '隋',
+        reign_title: '皇泰',
+        year_num: '元年',
+      });
+      expect(result).toContainEqual({
+        dynasty: '唐',
+        reign_title: '武德',
+        year_num: '元年',
+      });
+    });
+
+    it('should correct convert to the year 619', () => {
+      const result = convertYear(619);
+      expect(result).toHaveLength(2);
+      expect(result).toContainEqual({
+        dynasty: '隋',
+        reign_title: '皇泰',
+        year_num: '二年',
+      });
+      expect(result).toContainEqual({
+        dynasty: '唐',
+        reign_title: '武德',
+        year_num: '二年',
+      });
+    });
   });
 
   it('应该正确转换唐朝贞观元年', () => {
