@@ -99,7 +99,7 @@
 
 ### 文档完善
 - [ ] 添加 CHANGELOG.md
-- [x] 添加贡献指南 CONTRIBUTING.md（已完成）
+- [x] 添加贡献指南 CONTRIBUTING.md
 - [ ] 添加更详细的 API 文档
 - [ ] 添加历史数据准确性说明文档
 
