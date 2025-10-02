@@ -197,7 +197,7 @@ export const eraData: EraData[] = [
   { dynasty: '清', reign_title: '咸豐', start_year: 1851, end_year: 1861 },
   { dynasty: '清', reign_title: '同治', start_year: 1862, end_year: 1874 },
   { dynasty: '清', reign_title: '光緒', start_year: 1875, end_year: 1908 },
-  { dynasty: '清', reign_title: '宣統', start_year: 1909, end_year: 1911 },
+  { dynasty: '清', reign_title: '宣統', start_year: 1909, end_year: 1912 },
 
   // TODO: 需要补充更多朝代的年号数据
   // 参考 DATA_TODO.md 文件获取详细的数据补充清单

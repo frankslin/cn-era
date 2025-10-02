@@ -43,11 +43,19 @@ describe('convertYear', () => {
     expect(result).toEqual([]);
   });
 
-  it('应该正确转换民国元年', () => {
+  it('应该正确转换民国元年（1912年同时是宣统四年和民国元年）', () => {
     const result = convertYear(1912);
-    expect(result).toEqual([
-      { dynasty: '中華民國', reign_title: '民國', year_num: '元年' },
-    ]);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      dynasty: '清',
+      reign_title: '宣統',
+      year_num: '四年',
+    });
+    expect(result).toContainEqual({
+      dynasty: '中華民國',
+      reign_title: '民國',
+      year_num: '元年',
+    });
   });
 
   it('应该正确转换民国年份', () => {

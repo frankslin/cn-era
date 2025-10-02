@@ -31,17 +31,6 @@ export function convertYear(year: number): EraResult[] {
 
   const results: EraResult[] = [];
 
-  // 1912 年之後算作民國
-  if (year >= 1912) {
-    const mingguoYear = year - 1911;
-    results.push({
-      dynasty: '中華民國',
-      reign_title: '民國',
-      year_num: numberToChinese(mingguoYear),
-    });
-    return results;
-  }
-
   // 查找匹配的年号
   for (const era of eraData) {
     if (year >= era.start_year && year <= era.end_year) {
@@ -52,6 +41,16 @@ export function convertYear(year: number): EraResult[] {
         year_num: numberToChinese(yearInEra),
       });
     }
+  }
+
+  // 1912 年之後算作民國（需在历史年号搜索之后，以便处理1912年同时是宣统四年和民国元年）
+  if (year >= 1912) {
+    const mingguoYear = year - 1911;
+    results.push({
+      dynasty: '中華民國',
+      reign_title: '民國',
+      year_num: numberToChinese(mingguoYear),
+    });
   }
 
   return results;
