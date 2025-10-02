@@ -21,7 +21,8 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -38,8 +39,12 @@
   "author": "Frank Lin",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
     "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
     "@vitest/coverage-v8": "^1.0.0",
+    "eslint": "^9.36.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"
