@@ -39,7 +39,7 @@ describe('convertYear', () => {
   });
 
   it('应该返回空数组当年份不在数据范围内', () => {
-    const result = convertYear(1000);
+    const result = convertYear(908);
     expect(result).toEqual([]);
   });
 
@@ -124,5 +124,164 @@ describe('convertYear', () => {
       reign_title: '延和',
       year_num: '元年',
     });
+  });
+
+  // 宋朝测试
+  it('应该正确转换宋朝建隆元年', () => {
+    const result = convertYear(960);
+    expect(result).toEqual([
+      { dynasty: '宋', reign_title: '建隆', year_num: '元年' },
+    ]);
+  });
+
+  it('应该正确转换宋朝乾德年间', () => {
+    const result = convertYear(965);
+    expect(result).toEqual([
+      { dynasty: '宋', reign_title: '乾德', year_num: '三年' },
+    ]);
+  });
+
+  it('应该正确转换北宋盛世年份', () => {
+    const result = convertYear(1000);
+    expect(result).toEqual([
+      { dynasty: '宋', reign_title: '咸平', year_num: '三年' },
+    ]);
+  });
+
+  it('应该正确转换北宋末年靖康之难', () => {
+    const result = convertYear(1127);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      dynasty: '宋',
+      reign_title: '靖康',
+      year_num: '二年',
+    });
+    expect(result).toContainEqual({
+      dynasty: '宋',
+      reign_title: '建炎',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换南宋绍兴年间', () => {
+    const result = convertYear(1142);
+    expect(result).toEqual([
+      { dynasty: '宋', reign_title: '紹興', year_num: '十二年' },
+    ]);
+  });
+
+  it('应该正确转换南宋末年', () => {
+    const result = convertYear(1279);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      dynasty: '宋',
+      reign_title: '祥興',
+      year_num: '二年',
+    });
+    expect(result).toContainEqual({
+      dynasty: '元',
+      reign_title: '至元',
+      year_num: '十六年',
+    });
+  });
+
+  // 元朝测试
+  it('应该正确转换元朝中统元年', () => {
+    const result = convertYear(1260);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      dynasty: '元',
+      reign_title: '中統',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换元朝至元年间', () => {
+    const result = convertYear(1280);
+    expect(result).toEqual([
+      { dynasty: '元', reign_title: '至元', year_num: '十七年' },
+    ]);
+  });
+
+  it('应该正确转换元朝末年', () => {
+    const result = convertYear(1368);
+    expect(result).toContainEqual({
+      dynasty: '元',
+      reign_title: '至正',
+      year_num: '二十八年',
+    });
+  });
+
+  // 明朝测试
+  it('应该正确转换明朝洪武元年', () => {
+    const result = convertYear(1368);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      dynasty: '明',
+      reign_title: '洪武',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换明朝永乐年间', () => {
+    const result = convertYear(1410);
+    expect(result).toEqual([
+      { dynasty: '明', reign_title: '永樂', year_num: '八年' },
+    ]);
+  });
+
+  it('应该正确转换明朝万历年间', () => {
+    const result = convertYear(1600);
+    expect(result).toEqual([
+      { dynasty: '明', reign_title: '萬曆', year_num: '二十八年' },
+    ]);
+  });
+
+  it('应该正确转换明朝末年', () => {
+    const result = convertYear(1644);
+    expect(result).toContainEqual({
+      dynasty: '明',
+      reign_title: '崇禎',
+      year_num: '十七年',
+    });
+  });
+
+  // 清朝测试
+  it('应该正确转换清朝顺治元年', () => {
+    const result = convertYear(1644);
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      dynasty: '清',
+      reign_title: '順治',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换清朝康熙年间', () => {
+    const result = convertYear(1700);
+    expect(result).toEqual([
+      { dynasty: '清', reign_title: '康熙', year_num: '三十九年' },
+    ]);
+  });
+
+  it('应该正确转换清朝乾隆年间', () => {
+    const result = convertYear(1750);
+    expect(result).toEqual([
+      { dynasty: '清', reign_title: '乾隆', year_num: '十五年' },
+    ]);
+  });
+
+  it('应该正确转换清朝光绪年间', () => {
+    const result = convertYear(1900);
+    expect(result).toEqual([
+      { dynasty: '清', reign_title: '光緒', year_num: '二十六年' },
+    ]);
+  });
+
+  it('应该正确转换清朝末年', () => {
+    const result = convertYear(1911);
+    expect(result).toEqual([
+      { dynasty: '清', reign_title: '宣統', year_num: '三年' },
+    ]);
   });
 });
