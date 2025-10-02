@@ -75,4 +75,54 @@ describe('convertYear', () => {
     const result = convertYear(-221);
     expect(result).toEqual([]);
   });
+
+  // 唐朝盛世测试
+  it('应该正确转换开元盛世年份', () => {
+    const result = convertYear(713);
+    expect(result).toContainEqual({
+      dynasty: '唐',
+      reign_title: '開元',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换天宝年间', () => {
+    const result = convertYear(742);
+    expect(result).toContainEqual({
+      dynasty: '唐',
+      reign_title: '天寶',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换安史之乱年份', () => {
+    const result = convertYear(756);
+    expect(result).toContainEqual({
+      dynasty: '唐',
+      reign_title: '至德',
+      year_num: '元年',
+    });
+  });
+
+  it('应该正确转换唐朝末年', () => {
+    const result = convertYear(907);
+    expect(result).toEqual([
+      { dynasty: '唐', reign_title: '天祐', year_num: '四年' },
+    ]);
+  });
+
+  it('应该正确处理712年改元（多个年号）', () => {
+    const result = convertYear(712);
+    expect(result.length).toBeGreaterThanOrEqual(3);
+    expect(result).toContainEqual({
+      dynasty: '唐',
+      reign_title: '太極',
+      year_num: '元年',
+    });
+    expect(result).toContainEqual({
+      dynasty: '唐',
+      reign_title: '延和',
+      year_num: '元年',
+    });
+  });
 });
