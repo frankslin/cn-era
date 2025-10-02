@@ -11,7 +11,7 @@ A lightweight JavaScript/TypeScript library for converting Gregorian calendar ye
 
 ## Current Status
 
-**Early Development (v0.1.0)**
+**Early Development (v0.1.1)**
 
 This library is in early development. Currently includes:
 - **Tang Dynasty** - Complete (618-907 CE)
@@ -19,7 +19,7 @@ This library is in early development. Currently includes:
 - **Song Dynasty** - Complete (960-1279 CE)
 - **Yuan Dynasty** - Complete (1260-1368 CE)
 - **Ming Dynasty** - Complete (1368-1644 CE)
-- **Qing Dynasty** - Complete (1644-1911 CE)
+- **Qing Dynasty** - Complete (1644-1912 CE)
 - **Republic of China** - Complete (1912-present)
 
 We are actively working on adding complete historical era data for other dynasties. Contributions are welcome! See [TODO.md](TODO.md) for the data completion roadmap.
