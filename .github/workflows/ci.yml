@@ -90,8 +90,8 @@ jobs:
             echo "Error: dist/index.js not found"
             exit 1
           fi
-          if [ ! -f "dist/index.mjs" ]; then
-            echo "Error: dist/index.mjs not found"
+          if [ ! -f "dist/index.cjs" ]; then
+            echo "Error: dist/index.cjs not found"
             exit 1
           fi
           if [ ! -f "dist/index.d.ts" ]; then
