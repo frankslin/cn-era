@@ -50,6 +50,8 @@ pnpm add cn-era
 
 ## 快速开始
 
+**ESM (ES Modules)**
+
 ```javascript
 import { convertYear } from 'cn-era';
 
@@ -57,19 +59,33 @@ import { convertYear } from 'cn-era';
 const result = convertYear(618);
 console.log(result);
 // 输出: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+```
+
+**CommonJS**
+
+```javascript
+const { convertYear } = require('cn-era');
+
+const result = convertYear(618);
+console.log(result);
+// 输出: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+```
+
+**更多示例**
+
+```javascript
+import { convertYear } from 'cn-era';
 
 // 多个年号的情况（改元年份）
-const result2 = convertYear(690);
-console.log(result2);
-// 输出: [
-//   { dynasty: '唐', reign_title: '天授', year_num: '元年' },
+convertYear(690);
+// [
+//   { dynasty: '唐', reign_title: '載初', year_num: '二年' },
 //   { dynasty: '周', reign_title: '天授', year_num: '元年' }
 // ]
 
-// 年份数字形式
-const result3 = convertYear(620);
-console.log(result3);
-// 输出: [{ dynasty: '唐', reign_title: '武德', year_num: '三年' }]
+// 民国纪年
+convertYear(2024);
+// [{ dynasty: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
 ```
 
 ## API 文档

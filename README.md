@@ -50,6 +50,8 @@ pnpm add cn-era
 
 ## Quick Start
 
+**ESM (ES Modules)**
+
 ```javascript
 import { convertYear } from 'cn-era';
 
@@ -57,19 +59,33 @@ import { convertYear } from 'cn-era';
 const result = convertYear(618);
 console.log(result);
 // Output: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+```
+
+**CommonJS**
+
+```javascript
+const { convertYear } = require('cn-era');
+
+const result = convertYear(618);
+console.log(result);
+// Output: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+```
+
+**More Examples**
+
+```javascript
+import { convertYear } from 'cn-era';
 
 // Multiple eras in one year (era change)
-const result2 = convertYear(690);
-console.log(result2);
-// Output: [
+convertYear(690);
+// [
 //   { dynasty: '唐', reign_title: '載初', year_num: '二年' },
 //   { dynasty: '周', reign_title: '天授', year_num: '元年' }
 // ]
 
 // Republic of China era (post-1912)
-const result3 = convertYear(2024);
-console.log(result3);
-// Output: [{ dynasty: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
+convertYear(2024);
+// [{ dynasty: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
 ```
 
 ## API Documentation
