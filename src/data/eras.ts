@@ -7,6 +7,13 @@ import { EraData } from '../types';
  * 注：这里提供部分示例数据，完整数据需要补充
  */
 export const eraData: EraData[] = [
+  // 隋朝
+  { dynasty: '隋', reign_title: '開皇', start_year: 581, end_year: 600 },
+  { dynasty: '隋', reign_title: '仁壽', start_year: 601, end_year: 604 },
+  { dynasty: '隋', reign_title: '大業', start_year: 605, end_year: 618 },
+  { dynasty: '隋', reign_title: '義寧', start_year: 617, end_year: 618 },
+  { dynasty: '隋', reign_title: '皇泰', start_year: 618, end_year: 619 },
+
   // 唐朝
   { dynasty: '唐', reign_title: '武德', start_year: 618, end_year: 626 },
   { dynasty: '唐', reign_title: '貞觀', start_year: 627, end_year: 649 },
