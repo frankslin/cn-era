@@ -14,11 +14,11 @@ A lightweight JavaScript/TypeScript library for converting Gregorian calendar ye
 **Early Development (v0.1.0)**
 
 This library is in early development. Currently includes:
-- Tang Dynasty era data (618-710 CE)
-- Wu Zhou era data (684-705 CE)
-- Republic of China era (1912-present)
+- **Tang Dynasty** - Complete (618-907 CE)
+- **Wu Zhou** - Complete (684-705 CE)
+- **Republic of China** - Complete (1912-present)
 
-We are actively working on adding complete historical era data. Contributions are welcome! See [TODO.md](TODO.md) for the data completion roadmap.
+We are actively working on adding complete historical era data for other dynasties. Contributions are welcome! See [TODO.md](TODO.md) for the data completion roadmap.
 
 ## Features
 
