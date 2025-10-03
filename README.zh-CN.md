@@ -1,6 +1,6 @@
 # cn-era
 
-[![npm version](https://badge.fury.io/js/cn-era.svg)](https://www.npmjs.com/package/cn-era)
+[![npm version](https://img.shields.io/npm/v/cn-era.svg)](https://www.npmjs.com/package/cn-era)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > 将公元年份转换为中国历史年号纪年
