@@ -109,6 +109,25 @@ console.log(result);
 // Output: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
 ```
 
+**Browser/CDN (jsDelivr or unpkg)**
+
+```html
+<!-- Load from jsDelivr -->
+<script src="https://cdn.jsdelivr.net/npm/cn-era@0.3.1/dist/index.global.js"></script>
+
+<!-- Or from unpkg -->
+<script src="https://unpkg.com/cn-era@0.3.1/dist/index.global.js"></script>
+
+<script>
+  // Access via global CnEra object
+  const { convertYear, Dynasty } = CnEra;
+
+  const result = convertYear(618);
+  console.log(result);
+  // Output: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
+</script>
+```
+
 **More Examples**
 
 ```javascript

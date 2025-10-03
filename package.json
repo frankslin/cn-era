@@ -1,11 +1,13 @@
 {
   "name": "cn-era",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Convert Gregorian years into Chinese historical era names. 将公元年份转换为中国历史年号纪年",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

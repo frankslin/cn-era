@@ -2,12 +2,13 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
+  format: ['cjs', 'esm', 'iife'],
   dts: true,
   clean: true,
   minify: true,
   splitting: false,
-  sourcemap: false,
+  sourcemap: true,
+  globalName: 'CnEra',
   banner: {
     js: `/**
  * cn-era v${require('./package.json').version}

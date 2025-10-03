@@ -109,6 +109,25 @@ console.log(result);
 // 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
 ```
 
+**浏览器/CDN（jsDelivr 或 unpkg）**
+
+```html
+<!-- 从 jsDelivr 加载 -->
+<script src="https://cdn.jsdelivr.net/npm/cn-era@0.3.1/dist/index.global.js"></script>
+
+<!-- 或从 unpkg 加载 -->
+<script src="https://unpkg.com/cn-era@0.3.1/dist/index.global.js"></script>
+
+<script>
+  // 通过全局对象 CnEra 访问
+  const { convertYear, Dynasty } = CnEra;
+
+  const result = convertYear(618);
+  console.log(result);
+  // 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
+</script>
+```
+
 **更多示例**
 
 ```javascript
