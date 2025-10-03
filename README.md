@@ -11,18 +11,49 @@ A lightweight JavaScript/TypeScript library for converting Gregorian calendar ye
 
 ## Current Status
 
-**Early Development (v0.1.1)**
+**Beta Release (v0.2.0)**
 
-This library is in early development. Currently includes:
-- **Tang Dynasty** - Complete (618-907 CE)
-- **Wu Zhou** - Complete (684-705 CE)
-- **Song Dynasty** - Complete (960-1279 CE)
-- **Yuan Dynasty** - Complete (1260-1368 CE)
-- **Ming Dynasty** - Complete (1368-1644 CE)
-- **Qing Dynasty** - Complete (1644-1912 CE)
-- **Republic of China** - Complete (1912-present)
+This library now includes **complete era name coverage from 140 BCE to present**, covering all major Chinese dynasties and regimes:
 
-We are actively working on adding complete historical era data for other dynasties. Contributions are welcome! See [TODO.md](TODO.md) for the data completion roadmap.
+**Ancient Period:**
+- **Western Han** (140 BCE - 8 CE) - Complete
+- **Xin Dynasty** (9-23 CE) - Complete
+- **Eastern Han** (25-220 CE) - Complete
+
+**Three Kingdoms & Jin:**
+- **Cao Wei** (220-265 CE) - Complete
+- **Shu Han** (221-263 CE) - Complete
+- **Eastern Wu** (222-280 CE) - Complete
+- **Western Jin** (265-316 CE) - Complete
+- **Eastern Jin** (317-420 CE) - Complete
+
+**Northern and Southern Dynasties:**
+- **Southern Dynasties**: Liu Song, Southern Qi, Liang, Chen (420-589 CE) - Complete
+- **Northern Dynasties**: Northern Wei, Eastern Wei, Western Wei, Northern Qi, Northern Zhou (386-581 CE) - Complete
+
+**Unified Dynasties:**
+- **Sui Dynasty** (581-618 CE) - Complete
+- **Tang Dynasty** (618-907 CE) - Complete
+- **Wu Zhou** (690-705 CE) - Complete
+
+**Five Dynasties and Ten Kingdoms:**
+- **Five Dynasties**: Later Liang, Later Tang, Later Jin, Later Han, Later Zhou (907-960 CE) - Complete
+
+**Medieval Period:**
+- **Song Dynasty** (960-1279 CE) - Complete
+- **Liao Dynasty** (916-1125 CE) - Complete (concurrent with Song)
+- **Western Xia** (1038-1227 CE) - Complete (concurrent with Song)
+- **Jin Dynasty** (1115-1234 CE) - Complete (concurrent with Song)
+- **Yuan Dynasty** (1271-1368 CE) - Complete
+
+**Late Imperial:**
+- **Ming Dynasty** (1368-1644 CE) - Complete
+- **Qing Dynasty** (1644-1912 CE) - Complete
+
+**Modern:**
+- **Republic of China** (1912-present) - Complete
+
+**Total Coverage**: 498 historical era names spanning 2,164 years (140 BCE - 2024 CE)
 
 ## Features
 
