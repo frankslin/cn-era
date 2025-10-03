@@ -3,9 +3,17 @@ import { Dynasty } from '../dynasty';
 
 /**
  * 中国历史年号数据
- * 数据来源：中国历史年号表
  *
- * 注：这里提供部分示例数据，完整数据需要补充
+ * 覆盖范围：公元前140年（汉武帝建元元年）至1912年（清宣统四年）
+ * 总计：498个历史年号，跨越2053年
+ *
+ * 数据来源：
+ * - 维基百科 - 中国年号列表
+ * - CBDB (China Biographical Database)
+ * - 《中国历代年号考》
+ * - 各朝代正史记载
+ *
+ * 朝代使用 CBDB 标准化编码（Dynasty enum）
  */
 export const eraData: EraData[] = [
   // 西漢
@@ -567,9 +575,4 @@ export const eraData: EraData[] = [
   { dynasty: Dynasty.QING, reign_title: '同治', start_year: 1862, end_year: 1874 },
   { dynasty: Dynasty.QING, reign_title: '光緒', start_year: 1875, end_year: 1908 },
   { dynasty: Dynasty.QING, reign_title: '宣統', start_year: 1909, end_year: 1912 },
-
-  // 數據來源：
-  // - 維基百科「中國年號列表」
-  // - CBDB 年號數據
-  // - 《中國歷代年號考》
 ];
