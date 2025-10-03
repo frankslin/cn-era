@@ -11,7 +11,7 @@
 
 ## 当前状态
 
-**测试版本 (v0.2.0)**
+**测试版本 (v0.3.0)**
 
 本库现已包含**从公元前140年至今的完整年号覆盖**，涵盖中国历史所有主要朝代和政权：
 
@@ -57,13 +57,16 @@
 
 ## 特性
 
-- 精确的年号转换：支持从秦朝到清朝的历史年号
-- 完整的历史数据：涵盖中国历史各主要朝代
-- 多年号支持：处理同一年份多个年号并存的情况（如改元）
-- 零依赖：无需额外安装其他包
-- TypeScript 支持：提供完整的类型定义
-- 轻量化：体积小巧，不影响项目大小
-- 繁体输出：所有年号使用繁体中文，符合历史文献原貌
+- **智能主线模式**：自动返回正统朝代年号，实用性更强（v0.3.0 新增）
+- **朝代枚举系统**：使用标准化的 CBDB（中国历代人物传记数据库）朝代编码，可靠识别（v0.3.0 新增）
+- **灵活查询**：可按朝代筛选或查看所有并存政权（v0.3.0 新增）
+- **精确的年号转换**：支持从公元前140年至今的历史年号
+- **完整的历史数据**：涵盖中国历史各主要朝代（498个年号）
+- **多年号支持**：处理同一年份多个年号并存的情况
+- **零依赖**：无需额外安装其他包
+- **TypeScript 支持**：提供完整的类型定义
+- **轻量化**：体积小巧（~37KB minified），不影响项目大小
+- **繁体输出**：所有年号使用繁体中文，符合历史文献原貌
 
 ## 安装
 
@@ -88,85 +91,148 @@ pnpm add cn-era
 **ESM (ES Modules)**
 
 ```javascript
-import { convertYear } from 'cn-era';
+import { convertYear, Dynasty } from 'cn-era';
 
-// 基础用法
+// 基础用法 - 默认返回主线朝代
 const result = convertYear(618);
 console.log(result);
-// 输出: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+// 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
 ```
 
 **CommonJS**
 
 ```javascript
-const { convertYear } = require('cn-era');
+const { convertYear, Dynasty } = require('cn-era');
 
 const result = convertYear(618);
 console.log(result);
-// 输出: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+// 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
 ```
 
 **更多示例**
 
 ```javascript
-import { convertYear } from 'cn-era';
+import { convertYear, Dynasty } from 'cn-era';
 
-// 多个年号的情况（改元年份）
+// 默认模式：只返回主线/正统朝代
 convertYear(690);
+// [{ dynasty: 6, dynasty_name: '唐', reign_title: '載初', year_num: '二年' }]
+
+// 查看所有并存年号（包括武周）
+convertYear(690, { mode: 'all' });
 // [
-//   { dynasty: '唐', reign_title: '載初', year_num: '二年' },
-//   { dynasty: '武周', reign_title: '天授', year_num: '元年' }
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '載初', year_num: '二年' },
+//   { dynasty: 77, dynasty_name: '武周', reign_title: '天授', year_num: '元年' }
+// ]
+
+// 使用朝代枚举筛选特定朝代
+convertYear(618, { dynasty: Dynasty.SUI });
+// [
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '大業', year_num: '十四年' },
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '義寧', year_num: '二年' },
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '皇泰', year_num: '元年' }
 // ]
 
 // 民国纪年
 convertYear(2024);
-// [{ dynasty: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
+// [{ dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
 ```
 
 ## API 文档
 
-### `convertYear(year: number): EraResult[]`
+### `convertYear(year: number, opts?: ConvertYearOptions): EraResult[]`
 
 将公元年份转换为中国历史年号纪年。
 
 #### 参数
 
-- `year` (number): 公元年份，必须是正整数
+- `year` (number): 公元年份（范围：-841 到 3000，0 不合法）
+- `opts` (ConvertYearOptions, 可选): 转换选项
+  - `mode?: 'mainline' | 'all'` - 转换模式（默认：`'mainline'`）
+    - `'mainline'`：只返回正统/主线朝代（推荐用于大多数场景）
+    - `'all'`：返回所有并存的年号，包括非正统政权
+  - `dynasty?: Dynasty` - 使用朝代枚举筛选特定朝代
 
 #### 返回值
 
-返回一个数组，包含该年份对应的所有年号信息（某些年份可能有多个年号）。
+返回一个数组，包含该年份对应的所有年号信息。
 
 每个结果对象包含以下字段：
 
 ```typescript
 interface EraResult {
-  dynasty: string;      // 朝代名称，如 "唐"、"宋"
-  reign_title: string;  // 年号，如 "武德"、"贞观"
+  dynasty: Dynasty;     // 朝代枚举值（如 Dynasty.TANG = 6）
+  dynasty_name: string; // 朝代中文名称，如 "唐"、"宋"
+  reign_title: string;  // 年号，如 "武德"、"貞觀"
   year_num: string;     // 年份，如 "元年"、"三年"
+}
+
+enum Dynasty {
+  XI_HAN = 29,      // 西汉
+  DONG_HAN = 25,    // 东汉
+  SUI = 5,          // 隋
+  TANG = 6,         // 唐
+  SONG = 15,        // 宋
+  YUAN = 18,        // 元
+  MING = 19,        // 明
+  QING = 20,        // 清
+  ROC = 21,         // 中华民国
+  // ... 更多朝代（详见 src/dynasty.ts）
 }
 ```
 
 #### 示例
 
 ```javascript
-// 普通年份
+import { convertYear, Dynasty } from 'cn-era';
+
+// 普通年份 - 主线模式（默认）
 convertYear(627);
-// [{ dynasty: '唐', reign_title: '贞观', year_num: '元年' }]
+// [{ dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' }]
 
-// 改元年份（一年内有多个年号）
-convertYear(626);
+// 同一朝代改元
+convertYear(626, { mode: 'all' });
 // [
-//   { dynasty: '唐', reign_title: '武德', year_num: '九年' },
-//   { dynasty: '唐', reign_title: '贞观', year_num: '元年' }
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '九年' },
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' }
 // ]
 
-// 南北朝等分裂时期（多个政权并存）
-convertYear(420);
+// 主线模式过滤到正统朝代（宋而非辽）
+convertYear(1000);
+// [{ dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }]
+
+// all 模式显示并存政权
+convertYear(1000, { mode: 'all' });
 // [
-//   { dynasty: '南朝宋', reign_title: '永初', year_num: '元年' },
-//   { dynasty: '北魏', reign_title: '泰常', year_num: '五年' }
+//   { dynasty: 16, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' },
+//   { dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }
 // ]
+
+// 按朝代筛选
+convertYear(1000, { dynasty: Dynasty.LIAO });
+// [{ dynasty: 16, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' }]
+
+// 三国 - 主线模式返回魏（正统）
+convertYear(221);
+// [{ dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' }]
+
+// 三国 - all 模式显示并存政权
+convertYear(221, { mode: 'all' });
+// [
+//   { dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' },
+//   { dynasty: 53, dynasty_name: '蜀漢', reign_title: '章武', year_num: '元年' }
+// ]
+
+// 民国元年
+convertYear(1912, { mode: 'all' });
+// [
+//   { dynasty: 20, dynasty_name: '清', reign_title: '宣統', year_num: '四年' },
+//   { dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year_num: '元年' }
+// ]
+
+// 公元前年份
+convertYear(-140);
+// [{ dynasty: 29, dynasty_name: '西漢', reign_title: '建元', year_num: '元年' }]
 ```
 
 ## 使用场景
@@ -193,14 +259,28 @@ convertYear(420);
 
 ## 注意事项
 
-1. **改元情况**：某些年份会返回多个结果，这通常发生在：
+1. **主线模式 vs All 模式**（v0.3.0 新增）：
+   - **`mode: 'mainline'`**（默认）：只返回正统/主线朝代。适合大多数需要"标准"历史参考的场景。
+   - **`mode: 'all'`**：返回所有并存的年号，包括非正统政权。适合详细的历史研究。
+   - 示例：公元 1000 年，主线模式返回宋（宋），all 模式同时返回宋和辽（遼）。
+
+2. **朝代枚举系统**（v0.3.0 新增）：
+   - 朝代值现在使用 `Dynasty` 枚举表示，采用 CBDB 实体 ID
+   - 每个结果同时包含 `dynasty`（枚举值）和 `dynasty_name`（中文名称）
+   - 使用 `Dynasty.TANG`、`Dynasty.SONG` 等进行类型安全的朝代筛选
+
+3. **改元情况**：某些年份会返回多个结果，通常发生在：
    - 皇帝改元（同一年内更换年号）
    - 朝代更替
-   - 历史分裂时期的多个政权并存
+   - 历史分裂时期的多个政权并存（使用 `mode: 'all'` 查看全部）
 
-2. **年份范围**：目前支持公元前 221 年到公元 1912 年，超出范围会返回空数组
+4. **年份范围**：目前支持 -140 到 3000 年，超出范围会抛出错误
 
-3. **历史准确性**：年号数据基于主流历史记载，个别争议年份以通史为准
+5. **历史准确性**：年号数据基于主流历史记载，个别争议年份以通史为准。朝代优先级遵循正统历史传统。
+
+6. **公元前年份**：负数表示公元前年份（如 -140 = 公元前140年，年号制度开始）
+
+7. **繁体中文**：所有输出使用繁体中文字符，符合历史文献原貌。用户可根据需要转换为简体中文。
 
 ## 开发
 

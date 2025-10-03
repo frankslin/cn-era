@@ -6,6 +6,7 @@
 
 import { eraData } from '../src/data/eras';
 import type { EraData } from '../src/types';
+import { DynastyNameMap } from '../src/dynasty';
 
 interface ValidationIssue {
   type: 'error' | 'warning' | 'info';
@@ -99,10 +100,10 @@ eraData.forEach((era) => {
 // 4. 检查数据完整性
 console.log('4️⃣  检查数据完整性...');
 eraData.forEach((era, index) => {
-  if (!era.dynasty || era.dynasty.trim() === '') {
+  if (era.dynasty === undefined || era.dynasty === null) {
     issues.push({
       type: 'error',
-      message: `第 ${index + 1} 条记录缺少朝代名称`,
+      message: `第 ${index + 1} 条记录缺少朝代`,
       era,
     });
   }
@@ -128,7 +129,7 @@ console.log(`   跨越年份: ${maxYear - minYear + 1} 年\n`);
 
 // 6. 按朝代统计
 console.log('6️⃣  按朝代统计...');
-const dynastyCount = new Map<string, number>();
+const dynastyCount = new Map<number, number>();
 eraData.forEach((era) => {
   dynastyCount.set(era.dynasty, (dynastyCount.get(era.dynasty) || 0) + 1);
 });
@@ -140,10 +141,11 @@ const sortedDynasties = Array.from(dynastyCount.entries()).sort((a, b) => {
 });
 
 sortedDynasties.forEach(([dynasty, count]) => {
+  const dynastyName = DynastyNameMap[dynasty] || `未知(${dynasty})`;
   const eras = eraData.filter((e) => e.dynasty === dynasty);
   const minYear = Math.min(...eras.map((e) => e.start_year));
   const maxYear = Math.max(...eras.map((e) => e.end_year));
-  console.log(`   ${dynasty.padEnd(8)} ${count.toString().padStart(3)} 个年号 (${minYear} ~ ${maxYear})`);
+  console.log(`   ${dynastyName.padEnd(8)} ${count.toString().padStart(3)} 个年号 (${minYear} ~ ${maxYear})`);
 });
 
 console.log('\n');

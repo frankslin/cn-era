@@ -11,7 +11,7 @@ A lightweight JavaScript/TypeScript library for converting Gregorian calendar ye
 
 ## Current Status
 
-**Beta Release (v0.2.0)**
+**Beta Release (v0.3.0)**
 
 This library now includes **complete era name coverage from 140 BCE to present**, covering all major Chinese dynasties and regimes:
 
@@ -57,13 +57,16 @@ This library now includes **complete era name coverage from 140 BCE to present**
 
 ## Features
 
-- Accurate era conversion: Supports historical era names from Qin Dynasty to Qing Dynasty
-- Comprehensive historical data: Covers all major Chinese dynasties
-- Multiple era support: Handles cases where multiple era names coexist in the same year (e.g., era changes)
-- Zero dependencies: No additional packages required
-- TypeScript support: Complete type definitions included
-- Lightweight: Small bundle size, minimal impact on your project
-- Traditional Chinese output: All era names in Traditional Chinese characters
+- **Smart Mainline Mode**: Automatically returns the orthodox/mainline dynasty for practical use (new in v0.3.0)
+- **Dynasty Enum System**: Uses standardized CBDB (China Biographical Database) dynasty codes for reliable identification (new in v0.3.0)
+- **Flexible Querying**: Filter by specific dynasties or view all concurrent regimes (new in v0.3.0)
+- **Accurate Era Conversion**: Supports historical era names from 140 BCE to present
+- **Comprehensive Historical Data**: Covers all major Chinese dynasties (498 era names)
+- **Multiple Era Support**: Handles cases where multiple era names coexist in the same year
+- **Zero Dependencies**: No additional packages required
+- **TypeScript Support**: Complete type definitions included
+- **Lightweight**: Small bundle size (~37KB minified), minimal impact on your project
+- **Traditional Chinese Output**: All era names in Traditional Chinese characters
 
 ## Installation
 
@@ -88,93 +91,148 @@ pnpm add cn-era
 **ESM (ES Modules)**
 
 ```javascript
-import { convertYear } from 'cn-era';
+import { convertYear, Dynasty } from 'cn-era';
 
-// Basic usage
+// Basic usage - returns mainline dynasty by default
 const result = convertYear(618);
 console.log(result);
-// Output: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+// Output: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
 ```
 
 **CommonJS**
 
 ```javascript
-const { convertYear } = require('cn-era');
+const { convertYear, Dynasty } = require('cn-era');
 
 const result = convertYear(618);
 console.log(result);
-// Output: [{ dynasty: '唐', reign_title: '武德', year_num: '元年' }]
+// Output: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
 ```
 
 **More Examples**
 
 ```javascript
-import { convertYear } from 'cn-era';
+import { convertYear, Dynasty } from 'cn-era';
 
-// Multiple eras in one year (era change)
+// Default mode: returns only the mainline/orthodox dynasty
 convertYear(690);
+// [{ dynasty: 6, dynasty_name: '唐', reign_title: '載初', year_num: '二年' }]
+
+// Get all concurrent eras (including Wu Zhou)
+convertYear(690, { mode: 'all' });
 // [
-//   { dynasty: '唐', reign_title: '載初', year_num: '二年' },
-//   { dynasty: '武周', reign_title: '天授', year_num: '元年' }
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '載初', year_num: '二年' },
+//   { dynasty: 77, dynasty_name: '武周', reign_title: '天授', year_num: '元年' }
+// ]
+
+// Filter by specific dynasty using Dynasty enum
+convertYear(618, { dynasty: Dynasty.SUI });
+// [
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '大業', year_num: '十四年' },
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '義寧', year_num: '二年' },
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '皇泰', year_num: '元年' }
 // ]
 
 // Republic of China era (post-1912)
 convertYear(2024);
-// [{ dynasty: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
+// [{ dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
 ```
 
 ## API Documentation
 
-### `convertYear(year: number): EraResult[]`
+### `convertYear(year: number, opts?: ConvertYearOptions): EraResult[]`
 
 Convert a Gregorian calendar year to Chinese historical era name(s).
 
 #### Parameters
 
 - `year` (number): Gregorian calendar year (range: -841 to 3000, 0 is invalid)
+- `opts` (ConvertYearOptions, optional): Conversion options
+  - `mode?: 'mainline' | 'all'` - Conversion mode (default: `'mainline'`)
+    - `'mainline'`: Returns only the orthodox/mainline dynasty (recommended for most use cases)
+    - `'all'`: Returns all concurrent eras including non-orthodox regimes
+  - `dynasty?: Dynasty` - Filter by specific dynasty using Dynasty enum
 
 #### Returns
 
-Returns an array containing all era information for that year (some years may have multiple eras).
+Returns an array containing all era information for that year.
 
 Each result object contains the following fields:
 
 ```typescript
 interface EraResult {
-  dynasty: string;      // Dynasty name, e.g., "唐", "宋"
+  dynasty: Dynasty;     // Dynasty enum value (e.g., Dynasty.TANG = 6)
+  dynasty_name: string; // Dynasty name in Chinese, e.g., "唐", "宋"
   reign_title: string;  // Era name, e.g., "武德", "貞觀"
   year_num: string;     // Year in era, e.g., "元年", "三年"
+}
+
+enum Dynasty {
+  XI_HAN = 29,      // Western Han
+  DONG_HAN = 25,    // Eastern Han
+  SUI = 5,          // Sui
+  TANG = 6,         // Tang
+  SONG = 15,        // Song
+  YUAN = 18,        // Yuan
+  MING = 19,        // Ming
+  QING = 20,        // Qing
+  ROC = 21,         // Republic of China
+  // ... and more (see src/dynasty.ts for full list)
 }
 ```
 
 #### Examples
 
 ```javascript
-// Regular year
-convertYear(627);
-// [{ dynasty: '唐', reign_title: '貞觀', year_num: '元年' }]
+import { convertYear, Dynasty } from 'cn-era';
 
-// Era change year (multiple eras in one year)
-convertYear(626);
+// Regular year - mainline mode (default)
+convertYear(627);
+// [{ dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' }]
+
+// Era change within same dynasty
+convertYear(626, { mode: 'all' });
 // [
-//   { dynasty: '唐', reign_title: '武德', year_num: '九年' },
-//   { dynasty: '唐', reign_title: '貞觀', year_num: '元年' }
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '九年' },
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' }
 // ]
 
-// Coexisting regimes (e.g., Northern and Southern Dynasties)
-convertYear(420);
+// Mainline mode filters to orthodox dynasty (Song, not Liao)
+convertYear(1000);
+// [{ dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }]
+
+// All mode shows concurrent regimes
+convertYear(1000, { mode: 'all' });
 // [
-//   { dynasty: '南朝宋', reign_title: '永初', year_num: '元年' },
-//   { dynasty: '北魏', reign_title: '泰常', year_num: '五年' }
+//   { dynasty: 16, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' },
+//   { dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }
+// ]
+
+// Filter by specific dynasty
+convertYear(1000, { dynasty: Dynasty.LIAO });
+// [{ dynasty: 16, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' }]
+
+// Three Kingdoms - mainline returns Wei (orthodox)
+convertYear(221);
+// [{ dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' }]
+
+// Three Kingdoms - all mode shows concurrent states
+convertYear(221, { mode: 'all' });
+// [
+//   { dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' },
+//   { dynasty: 53, dynasty_name: '蜀漢', reign_title: '章武', year_num: '元年' }
 // ]
 
 // Republic of China
-convertYear(1912);
-// [{ dynasty: '中華民國', reign_title: '民國', year_num: '元年' }]
+convertYear(1912, { mode: 'all' });
+// [
+//   { dynasty: 20, dynasty_name: '清', reign_title: '宣統', year_num: '四年' },
+//   { dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year_num: '元年' }
+// ]
 
 // BCE year
 convertYear(-140);
-// [{ dynasty: '西漢', reign_title: '建元', year_num: '元年' }]
+// [{ dynasty: 29, dynasty_name: '西漢', reign_title: '建元', year_num: '元年' }]
 ```
 
 ## Supported Historical Periods
@@ -202,18 +260,28 @@ This library supports era name conversion from **Western Zhou Gonghe Regency (84
 
 ## Important Notes
 
-1. **Era changes**: Some years return multiple results, which typically occurs when:
+1. **Mainline vs All Mode** (New in v0.3.0):
+   - **`mode: 'mainline'`** (default): Returns only the orthodox/mainline dynasty. Best for most use cases where you want the "standard" historical reference.
+   - **`mode: 'all'`**: Returns all concurrent eras including non-orthodox regimes. Useful for detailed historical research.
+   - Example: In year 1000, mainline mode returns Song (宋), while all mode returns both Song and Liao (遼).
+
+2. **Dynasty Enum System** (New in v0.3.0):
+   - Dynasty values are now represented by `Dynasty` enum using CBDB entity IDs
+   - Each result includes both `dynasty` (enum value) and `dynasty_name` (Chinese name)
+   - Use `Dynasty.TANG`, `Dynasty.SONG`, etc. for type-safe dynasty filtering
+
+3. **Era Changes**: Years with multiple results typically occur when:
    - Emperor changes era name (multiple era names within the same year)
    - Dynasty transitions
-   - Coexisting regimes during periods of division
+   - Coexisting regimes during periods of division (use `mode: 'all'` to see all)
 
-2. **Year range**: Currently supports 841 BCE to 3000 CE. Years outside this range will throw an error.
+4. **Year Range**: Currently supports -140 to 3000 CE. Years outside this range will throw an error.
 
-3. **Historical accuracy**: Era name data is based on mainstream historical records. Disputed years follow standard histories.
+5. **Historical Accuracy**: Era name data is based on mainstream historical records. Disputed years follow standard histories. Dynasty priorities follow orthodox historical tradition.
 
-4. **BCE years**: Negative numbers represent BCE years (e.g., -221 = 221 BCE)
+6. **BCE Years**: Negative numbers represent BCE years (e.g., -140 = 140 BCE, first year with era names)
 
-5. **Traditional Chinese**: All output is in Traditional Chinese characters, which matches historical documents. Users can convert to Simplified Chinese as needed.
+7. **Traditional Chinese**: All output is in Traditional Chinese characters, which matches historical documents. Users can convert to Simplified Chinese as needed.
 
 ## Development
 
