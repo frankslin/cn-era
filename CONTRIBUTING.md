@@ -42,38 +42,55 @@ We welcome contributions of historical era data! When adding era names:
 Add era data to `src/data/eras.ts`:
 
 ```typescript
-{ dynasty: '朝代名', reign_title: '年號', start_year: 起始年, end_year: 結束年 }
+{ dynasty: Dynasty.DYNASTY_NAME, reign_title: '年號', start_year: 起始年, end_year: 結束年 }
 ```
 
 Example:
 ```typescript
+import { Dynasty } from '../dynasty';
+
 // 明朝
-{ dynasty: '明', reign_title: '洪武', start_year: 1368, end_year: 1398 },
-{ dynasty: '明', reign_title: '建文', start_year: 1399, end_year: 1402 },
+{ dynasty: Dynasty.MING, reign_title: '洪武', start_year: 1368, end_year: 1398 },
+{ dynasty: Dynasty.MING, reign_title: '建文', start_year: 1399, end_year: 1402 },
 ```
+
+**Note**: We use the `Dynasty` enum (based on CBDB entity IDs) instead of strings for better type safety and consistency.
 
 ### Adding Tests
 
 When adding new era data, please add corresponding test cases to `tests/index.test.ts`:
 
 ```typescript
+import { Dynasty } from '../src/dynasty';
+
 it('应该正确转换明朝洪武元年', () => {
-  const result = convertYear(1368);
+  const result = convertYear(1368, { mode: 'all' });
   expect(result).toContainEqual({
-    dynasty: '明',
+    dynasty: Dynasty.MING,
+    dynasty_name: '明',
     reign_title: '洪武',
     year_num: '元年',
   });
 });
 ```
 
-For era change years, use `toContainEqual`:
+For era change years with concurrent regimes, use `mode: 'all'` and `toContainEqual`:
 ```typescript
 it('should handle era change year', () => {
-  const result = convertYear(1368);
+  const result = convertYear(1368, { mode: 'all' });
   expect(result).toHaveLength(2);
-  expect(result).toContainEqual({ dynasty: '元', reign_title: '至正', year_num: '二十八年' });
-  expect(result).toContainEqual({ dynasty: '明', reign_title: '洪武', year_num: '元年' });
+  expect(result).toContainEqual({
+    dynasty: Dynasty.YUAN,
+    dynasty_name: '元',
+    reign_title: '至正',
+    year_num: '二十八年'
+  });
+  expect(result).toContainEqual({
+    dynasty: Dynasty.MING,
+    dynasty_name: '明',
+    reign_title: '洪武',
+    year_num: '元年'
+  });
 });
 ```
 
@@ -169,20 +186,27 @@ Your PR will be reviewed for:
 
 We may ask for revisions. Please be patient and responsive to feedback.
 
-## Priority Areas
+## Current Status
 
-See [TODO.md](TODO.md) for current priorities:
+As of **v0.3.0**, all historical era data is complete:
 
-**High Priority** (v0.1.x - v0.2.0):
-- Sui Dynasty (581-618)
-- Five Dynasties and Ten Kingdoms (907-960)
-- Liao, Jin, Western Xia (concurrent with Song)
-
-**Medium Priority** (v0.3.0 - v0.4.0):
-- Han Dynasty (Western Han, Eastern Han)
-- Three Kingdoms
-- Jin Dynasty
+✅ **Complete Coverage** (498 era names from 140 BCE to 1912 CE):
+- Western Han, Xin, Eastern Han
+- Three Kingdoms (Wei, Shu Han, Wu)
+- Jin Dynasty (Western Jin, Eastern Jin)
 - Northern and Southern Dynasties
+- Sui Dynasty
+- Tang Dynasty, Wu Zhou
+- Five Dynasties and Ten Kingdoms
+- Song, Liao, Jin, Western Xia
+- Yuan, Ming, Qing
+- Republic of China (1912-present)
+
+**Future Contributions Welcome**:
+- Data accuracy verification and corrections
+- Additional test coverage
+- Documentation improvements
+- Feature enhancements (see [TODO.md](TODO.md))
 
 ## Questions?
 
@@ -239,38 +263,55 @@ Thank you for contributing to cn-era!
 在 `src/data/eras.ts` 中添加年号数据：
 
 ```typescript
-{ dynasty: '朝代名', reign_title: '年號', start_year: 起始年, end_year: 結束年 }
+{ dynasty: Dynasty.朝代名, reign_title: '年號', start_year: 起始年, end_year: 結束年 }
 ```
 
 示例：
 ```typescript
+import { Dynasty } from '../dynasty';
+
 // 明朝
-{ dynasty: '明', reign_title: '洪武', start_year: 1368, end_year: 1398 },
-{ dynasty: '明', reign_title: '建文', start_year: 1399, end_year: 1402 },
+{ dynasty: Dynasty.MING, reign_title: '洪武', start_year: 1368, end_year: 1398 },
+{ dynasty: Dynasty.MING, reign_title: '建文', start_year: 1399, end_year: 1402 },
 ```
+
+**注意**：我们使用 `Dynasty` 枚举（基于 CBDB 实体 ID）而非字符串，以获得更好的类型安全性和一致性。
 
 ### 添加测试
 
 添加新数据时，请在 `tests/index.test.ts` 中添加对应的测试用例：
 
 ```typescript
+import { Dynasty } from '../src/dynasty';
+
 it('应该正确转换明朝洪武元年', () => {
-  const result = convertYear(1368);
+  const result = convertYear(1368, { mode: 'all' });
   expect(result).toContainEqual({
-    dynasty: '明',
+    dynasty: Dynasty.MING,
+    dynasty_name: '明',
     reign_title: '洪武',
     year_num: '元年',
   });
 });
 ```
 
-对于改元年份，使用 `toContainEqual`：
+对于改元年份或并存政权，使用 `mode: 'all'` 和 `toContainEqual`：
 ```typescript
 it('应该处理改元年份', () => {
-  const result = convertYear(1368);
+  const result = convertYear(1368, { mode: 'all' });
   expect(result).toHaveLength(2);
-  expect(result).toContainEqual({ dynasty: '元', reign_title: '至正', year_num: '二十八年' });
-  expect(result).toContainEqual({ dynasty: '明', reign_title: '洪武', year_num: '元年' });
+  expect(result).toContainEqual({
+    dynasty: Dynasty.YUAN,
+    dynasty_name: '元',
+    reign_title: '至正',
+    year_num: '二十八年'
+  });
+  expect(result).toContainEqual({
+    dynasty: Dynasty.MING,
+    dynasty_name: '明',
+    reign_title: '洪武',
+    year_num: '元年'
+  });
 });
 ```
 
@@ -366,20 +407,27 @@ test: add tests for Five Dynasties period
 
 我们可能会要求修改。请耐心并积极响应反馈。
 
-## 优先领域
+## 当前状态
 
-查看 [TODO.md](TODO.md) 了解当前优先级：
+截至 **v0.3.0**，所有历史年号数据已完整：
 
-**高优先级**（v0.1.x - v0.2.0）：
-- 隋朝（581-618）
-- 五代十国（907-960）
-- 辽、金、西夏（与宋并存）
-
-**中优先级**（v0.3.0 - v0.4.0）：
-- 汉朝（西汉、东汉）
-- 三国
-- 晋朝
+✅ **完整覆盖**（498个年号，公元前140年至1912年）：
+- 西汉、新、东汉
+- 三国（魏、蜀汉、吴）
+- 晋朝（西晋、东晋）
 - 南北朝
+- 隋朝
+- 唐朝、武周
+- 五代十国
+- 宋、辽、金、西夏
+- 元、明、清
+- 中华民国（1912年至今）
+
+**欢迎贡献**：
+- 数据准确性验证和修正
+- 增加测试覆盖率
+- 文档改进
+- 功能增强（查看 [TODO.md](TODO.md)）
 
 ## 有疑问？
 
