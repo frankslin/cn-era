@@ -305,7 +305,7 @@ describe('convertYear', () => {
     });
     expect(result).toContainEqual({
       dynasty: Dynasty.YUAN, dynasty_name: '元',
-      reign_title: '至元',
+      reign_title: '至元 (世祖)',
       year: 16,
       year_num: '十六年',
     });
@@ -323,11 +323,23 @@ describe('convertYear', () => {
     });
   });
 
-  it('应该正确转换元朝至元年间', () => {
+  it('应该正确转换元世祖至元年间', () => {
     const result = convertYear(1280);
     expect(result).toEqual([
-      { dynasty: Dynasty.YUAN, dynasty_name: '元', reign_title: '至元', year: 17, year_num: '十七年' },
+      { dynasty: Dynasty.YUAN, dynasty_name: '元', reign_title: '至元 (世祖)', year: 17, year_num: '十七年' },
     ]);
+  });
+
+  it('应该正确转换元顺帝至元年间', () => {
+    const result = convertYear(1335);
+    expect(result).toContainEqual(
+      {
+        dynasty: Dynasty.YUAN,
+        dynasty_name: '元',
+        reign_title: '至元 (順帝)',
+        year: 1,
+        year_num: '元年'
+      });
   });
 
   it('应该正确转换元朝末年', () => {

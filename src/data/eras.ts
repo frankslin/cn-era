@@ -529,7 +529,7 @@ export const eraData: EraData[] = [
 
   // 元朝
   { dynasty: Dynasty.YUAN, reign_title: '中統', start_year: 1260, end_year: 1264 },
-  { dynasty: Dynasty.YUAN, reign_title: '至元', start_year: 1264, end_year: 1294 },
+  { dynasty: Dynasty.YUAN, reign_title: '至元 (世祖)', start_year: 1264, end_year: 1294 },
   { dynasty: Dynasty.YUAN, reign_title: '元貞', start_year: 1295, end_year: 1297 },
   { dynasty: Dynasty.YUAN, reign_title: '大德', start_year: 1297, end_year: 1307 },
   { dynasty: Dynasty.YUAN, reign_title: '至大', start_year: 1308, end_year: 1311 },
@@ -542,7 +542,7 @@ export const eraData: EraData[] = [
   { dynasty: Dynasty.YUAN, reign_title: '天曆', start_year: 1328, end_year: 1330 },
   { dynasty: Dynasty.YUAN, reign_title: '至順', start_year: 1330, end_year: 1333 },
   { dynasty: Dynasty.YUAN, reign_title: '元統', start_year: 1333, end_year: 1335 },
-  { dynasty: Dynasty.YUAN, reign_title: '至元', start_year: 1335, end_year: 1340 },
+  { dynasty: Dynasty.YUAN, reign_title: '至元 (順帝)', start_year: 1335, end_year: 1340 },
   { dynasty: Dynasty.YUAN, reign_title: '至正', start_year: 1341, end_year: 1368 },
 
   // 明朝

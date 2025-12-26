@@ -11,7 +11,7 @@ A lightweight JavaScript/TypeScript library for converting Gregorian calendar ye
 
 ## Current Status
 
-**Stable Release (v0.4.0)**
+**Stable Release (v0.4.1)**
 
 This library now includes **complete era name coverage from 140 BCE to present**, covering all major Chinese dynasties and regimes:
 
@@ -304,6 +304,9 @@ This library supports era name conversion from **Western Zhou Gonghe Regency (84
 7. **Traditional Chinese**: All output is in Traditional Chinese characters, which matches historical documents. Users can convert to Simplified Chinese as needed.
 
 ## Recent Changes
+
+### v0.4.1
+- Differentiate the two '至元' eras in Yuan Dynasty.
 
 ### v0.4.0
 - Added `year: number` to `EraResult` to return numeric year values.
