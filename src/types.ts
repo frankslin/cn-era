@@ -10,6 +10,8 @@ export interface EraResult {
   dynasty_name: string;
   /** 年号 */
   reign_title: string;
+  /** 年份（数字） */
+  year: number;
   /** 年份（如 "元年"、"三年"） */
   year_num: string;
 }

@@ -96,7 +96,7 @@ import { convertYear, Dynasty } from 'cn-era';
 // 基础用法 - 默认返回主线朝代
 const result = convertYear(618);
 console.log(result);
-// 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
+// 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year: 1, year_num: '元年' }]
 ```
 
 **CommonJS**
@@ -106,7 +106,7 @@ const { convertYear, Dynasty } = require('cn-era');
 
 const result = convertYear(618);
 console.log(result);
-// 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
+// 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year: 1, year_num: '元年' }]
 ```
 
 **浏览器/CDN（jsDelivr 或 unpkg）**
@@ -124,7 +124,7 @@ console.log(result);
 
   const result = convertYear(618);
   console.log(result);
-  // 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }]
+  // 输出: [{ dynasty: 6, dynasty_name: '唐', reign_title: '武德', year: 1, year_num: '元年' }]
 </script>
 ```
 
@@ -135,26 +135,26 @@ import { convertYear, Dynasty } from 'cn-era';
 
 // 默认模式：只返回主线/正统朝代
 convertYear(690);
-// [{ dynasty: 6, dynasty_name: '唐', reign_title: '載初', year_num: '二年' }]
+// [{ dynasty: 6, dynasty_name: '唐', reign_title: '載初', year: 2, year_num: '二年' }]
 
 // 查看所有并存年号（包括武周）
 convertYear(690, { mode: 'all' });
 // [
-//   { dynasty: 6, dynasty_name: '唐', reign_title: '載初', year_num: '二年' },
-//   { dynasty: 77, dynasty_name: '武周', reign_title: '天授', year_num: '元年' }
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '載初', year: 2, year_num: '二年' },
+//   { dynasty: 77, dynasty_name: '武周', reign_title: '天授', year: 1, year_num: '元年' }
 // ]
 
 // 使用朝代枚举筛选特定朝代
 convertYear(618, { dynasty: Dynasty.SUI });
 // [
-//   { dynasty: 5, dynasty_name: '隋', reign_title: '大業', year_num: '十四年' },
-//   { dynasty: 5, dynasty_name: '隋', reign_title: '義寧', year_num: '二年' },
-//   { dynasty: 5, dynasty_name: '隋', reign_title: '皇泰', year_num: '元年' }
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '大業', year: 14, year_num: '十四年' },
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '義寧', year: 2, year_num: '二年' },
+//   { dynasty: 5, dynasty_name: '隋', reign_title: '皇泰', year: 1, year_num: '元年' }
 // ]
 
 // 民国纪年
 convertYear(2024);
-// [{ dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year_num: '一百一十三年' }]
+// [{ dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year: 113, year_num: '一百一十三年' }]
 ```
 
 ## API 文档
@@ -183,7 +183,8 @@ interface EraResult {
   dynasty: Dynasty;     // 朝代枚举值（如 Dynasty.TANG = 6）
   dynasty_name: string; // 朝代中文名称，如 "唐"、"宋"
   reign_title: string;  // 年号，如 "武德"、"貞觀"
-  year_num: string;     // 年份，如 "元年"、"三年"
+  year: number;         // 年份（数字），如 1、3
+  year_num: string;     // 年份（如 "元年"、"三年"）
 }
 
 enum Dynasty {
@@ -207,51 +208,51 @@ import { convertYear, Dynasty } from 'cn-era';
 
 // 普通年份 - 主线模式（默认）
 convertYear(627);
-// [{ dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' }]
+// [{ dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year: 1, year_num: '元年' }]
 
 // 同一朝代改元
 convertYear(626, { mode: 'all' });
 // [
-//   { dynasty: 6, dynasty_name: '唐', reign_title: '武德', year_num: '九年' },
-//   { dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' }
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '武德', year: 9, year_num: '九年' },
+//   { dynasty: 6, dynasty_name: '唐', reign_title: '貞觀', year: 1, year_num: '元年' }
 // ]
 
 // 主线模式过滤到正统朝代（宋而非辽）
 convertYear(1000);
-// [{ dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }]
+// [{ dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year: 3, year_num: '三年' }]
 
 // all 模式显示并存政权
 convertYear(1000, { mode: 'all' });
 // [
-//   { dynasty: 16, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' },
-//   { dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }
+//   { dynasty: 16, dynasty_name: '遼', reign_title: '統和', year: 18, year_num: '十八年' },
+//   { dynasty: 15, dynasty_name: '宋', reign_title: '咸平', year: 3, year_num: '三年' }
 // ]
 
 // 按朝代筛选
 convertYear(1000, { dynasty: Dynasty.LIAO });
-// [{ dynasty: 16, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' }]
+// [{ dynasty: 16, dynasty_name: '遼', reign_title: '統和', year: 18, year_num: '十八年' }]
 
 // 三国 - 主线模式返回魏（正统）
 convertYear(221);
-// [{ dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' }]
+// [{ dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year: 2, year_num: '二年' }]
 
 // 三国 - all 模式显示并存政权
 convertYear(221, { mode: 'all' });
 // [
-//   { dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' },
-//   { dynasty: 53, dynasty_name: '蜀漢', reign_title: '章武', year_num: '元年' }
+//   { dynasty: 26, dynasty_name: '魏', reign_title: '黃初', year: 2, year_num: '二年' },
+//   { dynasty: 53, dynasty_name: '蜀漢', reign_title: '章武', year: 1, year_num: '元年' }
 // ]
 
-// 民国元年
+// 民国纪年
 convertYear(1912, { mode: 'all' });
 // [
-//   { dynasty: 20, dynasty_name: '清', reign_title: '宣統', year_num: '四年' },
-//   { dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year_num: '元年' }
+//   { dynasty: 20, dynasty_name: '清', reign_title: '宣統', year: 4, year_num: '四年' },
+//   { dynasty: 21, dynasty_name: '中華民國', reign_title: '民國', year: 1, year_num: '元年' }
 // ]
 
 // 公元前年份
 convertYear(-140);
-// [{ dynasty: 29, dynasty_name: '西漢', reign_title: '建元', year_num: '元年' }]
+// [{ dynasty: 29, dynasty_name: '西漢', reign_title: '建元', year: 1, year_num: '元年' }]
 ```
 
 ## 使用场景
@@ -300,6 +301,12 @@ convertYear(-140);
 6. **公元前年份**：负数表示公元前年份（如 -140 = 公元前140年，年号制度开始）
 
 7. **繁体中文**：所有输出使用繁体中文字符，符合历史文献原貌。用户可根据需要转换为简体中文。
+
+## 最近更新
+
+### v0.4.0
+- 在 `EraResult` 中增加了 `year: number` 字段，以返回数字年份。
+- 更新了文档和示例。
 
 ## 开发
 

@@ -5,26 +5,27 @@ describe('convertYear', () => {
   it('应该正确转换唐朝武德三年', () => {
     const result = convertYear(620);
     expect(result).toEqual([
-      { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '武德', year_num: '三年' },
+      { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '武德', year: 3, year_num: '三年' },
     ]);
   });
 
   // Sui Dynasty tests
   describe('Sui Dynasty', () => {
     it('should correctly convert to the first year of the Sui Dynasty', () => {
-    const result = convertYear(581);
-    expect(result).toContainEqual({
-      dynasty: Dynasty.SUI,
-      dynasty_name: '隋',
-      reign_title: '開皇',
-      year_num: '元年',
+      const result = convertYear(581);
+      expect(result).toContainEqual({
+        dynasty: Dynasty.SUI,
+        dynasty_name: '隋',
+        reign_title: '開皇',
+        year: 1,
+        year_num: '元年',
+      });
     });
-  });
 
     it('should correct convert to a year in the Renshou reign', () => {
       const result = convertYear(602);
       expect(result).toEqual([
-        { dynasty: Dynasty.SUI, dynasty_name: '隋', reign_title: '仁壽', year_num: '二年' },
+        { dynasty: Dynasty.SUI, dynasty_name: '隋', reign_title: '仁壽', year: 2, year_num: '二年' },
       ]);
     });
 
@@ -35,12 +36,14 @@ describe('convertYear', () => {
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '大業',
+        year: 13,
         year_num: '十三年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '義寧',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -52,24 +55,28 @@ describe('convertYear', () => {
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '大業',
+        year: 14,
         year_num: '十四年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '義寧',
+        year: 2,
         year_num: '二年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '皇泰',
+        year: 1,
         year_num: '元年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.TANG,
         dynasty_name: '唐',
         reign_title: '武德',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -81,12 +88,14 @@ describe('convertYear', () => {
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '皇泰',
+        year: 2,
         year_num: '二年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.TANG,
         dynasty_name: '唐',
         reign_title: '武德',
+        year: 2,
         year_num: '二年',
       });
     });
@@ -95,7 +104,7 @@ describe('convertYear', () => {
   it('应该正确转换唐朝贞观元年', () => {
     const result = convertYear(627);
     expect(result).toEqual([
-      { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '貞觀', year_num: '元年' },
+      { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '貞觀', year: 1, year_num: '元年' },
     ]);
   });
 
@@ -105,11 +114,13 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '載初',
+      year: 2,
       year_num: '二年',
     });
     expect(result).toContainEqual({
       dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周',
       reign_title: '天授',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -119,6 +130,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.HOU_LIANG, dynasty_name: '後梁',
       reign_title: '開平',
+      year: 2,
       year_num: '二年',
     });
   });
@@ -129,11 +141,13 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.QING, dynasty_name: '清',
       reign_title: '宣統',
+      year: 4,
       year_num: '四年',
     });
     expect(result).toContainEqual({
       dynasty: Dynasty.ROC, dynasty_name: '中華民國',
       reign_title: '民國',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -141,7 +155,7 @@ describe('convertYear', () => {
   it('应该正确转换民国年份', () => {
     const result = convertYear(2024);
     expect(result).toEqual([
-      { dynasty: Dynasty.ROC, dynasty_name: '中華民國', reign_title: '民國', year_num: '一百一十三年' },
+      { dynasty: Dynasty.ROC, dynasty_name: '中華民國', reign_title: '民國', year: 113, year_num: '一百一十三年' },
     ]);
   });
 
@@ -170,6 +184,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '開元',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -179,6 +194,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '天寶',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -188,6 +204,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '至德',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -197,6 +214,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '天祐',
+      year: 4,
       year_num: '四年',
     });
   });
@@ -207,11 +225,13 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '太極',
+      year: 1,
       year_num: '元年',
     });
     expect(result).toContainEqual({
       dynasty: Dynasty.TANG, dynasty_name: '唐',
       reign_title: '延和',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -222,6 +242,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '建隆',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -231,6 +252,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '乾德',
+      year: 3,
       year_num: '三年',
     });
   });
@@ -240,6 +262,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '咸平',
+      year: 3,
       year_num: '三年',
     });
   });
@@ -250,11 +273,13 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '靖康',
+      year: 2,
       year_num: '二年',
     });
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '建炎',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -264,6 +289,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '紹興',
+      year: 12,
       year_num: '十二年',
     });
   });
@@ -274,11 +300,13 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.SONG, dynasty_name: '宋',
       reign_title: '祥興',
+      year: 2,
       year_num: '二年',
     });
     expect(result).toContainEqual({
       dynasty: Dynasty.YUAN, dynasty_name: '元',
       reign_title: '至元',
+      year: 16,
       year_num: '十六年',
     });
   });
@@ -290,6 +318,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.YUAN, dynasty_name: '元',
       reign_title: '中統',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -297,7 +326,7 @@ describe('convertYear', () => {
   it('应该正确转换元朝至元年间', () => {
     const result = convertYear(1280);
     expect(result).toEqual([
-      { dynasty: Dynasty.YUAN, dynasty_name: '元', reign_title: '至元', year_num: '十七年' },
+      { dynasty: Dynasty.YUAN, dynasty_name: '元', reign_title: '至元', year: 17, year_num: '十七年' },
     ]);
   });
 
@@ -306,6 +335,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.YUAN, dynasty_name: '元',
       reign_title: '至正',
+      year: 28,
       year_num: '二十八年',
     });
   });
@@ -317,6 +347,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.MING, dynasty_name: '明',
       reign_title: '洪武',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -324,14 +355,14 @@ describe('convertYear', () => {
   it('应该正确转换明朝永乐年间', () => {
     const result = convertYear(1410);
     expect(result).toEqual([
-      { dynasty: Dynasty.MING, dynasty_name: '明', reign_title: '永樂', year_num: '八年' },
+      { dynasty: Dynasty.MING, dynasty_name: '明', reign_title: '永樂', year: 8, year_num: '八年' },
     ]);
   });
 
   it('应该正确转换明朝万历年间', () => {
     const result = convertYear(1600);
     expect(result).toEqual([
-      { dynasty: Dynasty.MING, dynasty_name: '明', reign_title: '萬曆', year_num: '二十八年' },
+      { dynasty: Dynasty.MING, dynasty_name: '明', reign_title: '萬曆', year: 28, year_num: '二十八年' },
     ]);
   });
 
@@ -340,6 +371,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.MING, dynasty_name: '明',
       reign_title: '崇禎',
+      year: 17,
       year_num: '十七年',
     });
   });
@@ -351,6 +383,7 @@ describe('convertYear', () => {
     expect(result).toContainEqual({
       dynasty: Dynasty.QING, dynasty_name: '清',
       reign_title: '順治',
+      year: 1,
       year_num: '元年',
     });
   });
@@ -358,28 +391,28 @@ describe('convertYear', () => {
   it('应该正确转换清朝康熙年间', () => {
     const result = convertYear(1700);
     expect(result).toEqual([
-      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '康熙', year_num: '三十九年' },
+      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '康熙', year: 39, year_num: '三十九年' },
     ]);
   });
 
   it('应该正确转换清朝乾隆年间', () => {
     const result = convertYear(1750);
     expect(result).toEqual([
-      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '乾隆', year_num: '十五年' },
+      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '乾隆', year: 15, year_num: '十五年' },
     ]);
   });
 
   it('应该正确转换清朝光绪年间', () => {
     const result = convertYear(1900);
     expect(result).toEqual([
-      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '光緒', year_num: '二十六年' },
+      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '光緒', year: 26, year_num: '二十六年' },
     ]);
   });
 
   it('应该正确转换清朝末年', () => {
     const result = convertYear(1911);
     expect(result).toEqual([
-      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '宣統', year_num: '三年' },
+      { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '宣統', year: 3, year_num: '三年' },
     ]);
   });
 });
@@ -391,6 +424,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.HOU_LIANG, dynasty_name: '後梁',
         reign_title: '開平',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -400,6 +434,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.HOU_TANG, dynasty_name: '後唐',
         reign_title: '同光',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -411,6 +446,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.LIAO, dynasty_name: '遼',
         reign_title: '神冊',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -422,6 +458,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.XI_XIA, dynasty_name: '西夏',
         reign_title: '顯道',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -433,6 +470,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.JIN_DYNASTY, dynasty_name: '金',
         reign_title: '收國',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -444,6 +482,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.XI_HAN, dynasty_name: '西漢',
         reign_title: '建元',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -455,6 +494,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.XIN, dynasty_name: '新',
         reign_title: '始建國',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -466,6 +506,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.DONG_HAN, dynasty_name: '東漢',
         reign_title: '建武',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -477,6 +518,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.SAN_GUO_WEI, dynasty_name: '魏',
         reign_title: '黃初',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -486,6 +528,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.SAN_GUO_SHU, dynasty_name: '蜀漢',
         reign_title: '章武',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -495,6 +538,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.SAN_GUO_WU, dynasty_name: '吳',
         reign_title: '黃武',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -506,6 +550,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.XI_JIN, dynasty_name: '西晉',
         reign_title: '泰始',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -515,6 +560,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.DONG_JIN, dynasty_name: '東晉',
         reign_title: '建武',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -526,6 +572,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.LIU_SONG, dynasty_name: '劉宋',
         reign_title: '永初',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -535,6 +582,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.NAN_QI, dynasty_name: '南齊',
         reign_title: '建元',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -544,6 +592,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.NAN_LIANG, dynasty_name: '梁',
         reign_title: '天監',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -553,6 +602,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.CHEN, dynasty_name: '陳',
         reign_title: '永定',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -562,6 +612,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.BEI_WEI, dynasty_name: '北魏',
         reign_title: '登國',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -571,6 +622,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.DONG_WEI, dynasty_name: '東魏',
         reign_title: '天平',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -580,6 +632,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.XI_WEI, dynasty_name: '西魏',
         reign_title: '大統',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -589,6 +642,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.BEI_QI, dynasty_name: '北齊',
         reign_title: '天保',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -598,6 +652,7 @@ describe('Dynasty Tests', () => {
       expect(result).toContainEqual({
         dynasty: Dynasty.BEI_ZHOU, dynasty_name: '北周',
         reign_title: '武成',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -610,7 +665,7 @@ describe('Options Tests', () => {
       // 618年隋唐交替，唐为正统
       const result = convertYear(618);
       expect(result).toEqual([
-        { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }
+        { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '武德', year: 1, year_num: '元年' }
       ]);
     });
 
@@ -622,12 +677,14 @@ describe('Options Tests', () => {
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '大業',
+        year: 14,
         year_num: '十四年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.TANG,
         dynasty_name: '唐',
         reign_title: '武德',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -636,7 +693,7 @@ describe('Options Tests', () => {
       // 221年三国时期，魏为正统
       const result = convertYear(221);
       expect(result).toEqual([
-        { dynasty: Dynasty.SAN_GUO_WEI, dynasty_name: '魏', reign_title: '黃初', year_num: '二年' }
+        { dynasty: Dynasty.SAN_GUO_WEI, dynasty_name: '魏', reign_title: '黃初', year: 2, year_num: '二年' }
       ]);
     });
 
@@ -647,12 +704,14 @@ describe('Options Tests', () => {
         dynasty: Dynasty.SAN_GUO_WEI,
         dynasty_name: '魏',
         reign_title: '黃初',
+        year: 2,
         year_num: '二年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.SAN_GUO_SHU,
         dynasty_name: '蜀漢',
         reign_title: '章武',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -661,7 +720,7 @@ describe('Options Tests', () => {
       // 1000年宋辽并立，宋为正统
       const result = convertYear(1000);
       expect(result).toEqual([
-        { dynasty: Dynasty.SONG, dynasty_name: '宋', reign_title: '咸平', year_num: '三年' }
+        { dynasty: Dynasty.SONG, dynasty_name: '宋', reign_title: '咸平', year: 3, year_num: '三年' }
       ]);
     });
 
@@ -672,12 +731,14 @@ describe('Options Tests', () => {
         dynasty: Dynasty.SONG,
         dynasty_name: '宋',
         reign_title: '咸平',
+        year: 3,
         year_num: '三年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.LIAO,
         dynasty_name: '遼',
         reign_title: '統和',
+        year: 18,
         year_num: '十八年',
       });
     });
@@ -686,7 +747,7 @@ describe('Options Tests', () => {
       // 690年武周建立，但唐为正统
       const result = convertYear(690);
       expect(result).toEqual([
-        { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '載初', year_num: '二年' }
+        { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '載初', year: 2, year_num: '二年' }
       ]);
     });
 
@@ -697,12 +758,14 @@ describe('Options Tests', () => {
         dynasty: Dynasty.TANG,
         dynasty_name: '唐',
         reign_title: '載初',
+        year: 2,
         year_num: '二年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.WU_ZHOU,
         dynasty_name: '武周',
         reign_title: '天授',
+        year: 1,
         year_num: '元年',
       });
     });
@@ -717,18 +780,21 @@ describe('Options Tests', () => {
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '大業',
+        year: 14,
         year_num: '十四年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '義寧',
+        year: 2,
         year_num: '二年',
       });
       expect(result).toContainEqual({
         dynasty: Dynasty.SUI,
         dynasty_name: '隋',
         reign_title: '皇泰',
+        year: 1,
         year_num: '元年',
       });
       // 不应该包含唐
@@ -738,14 +804,14 @@ describe('Options Tests', () => {
     it('should filter by Tang dynasty', () => {
       const result = convertYear(618, { dynasty: Dynasty.TANG });
       expect(result).toEqual([
-        { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '武德', year_num: '元年' }
+        { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '武德', year: 1, year_num: '元年' }
       ]);
     });
 
     it('should filter by Liao dynasty in Song-Liao period', () => {
       const result = convertYear(1000, { dynasty: Dynasty.LIAO });
       expect(result).toEqual([
-        { dynasty: Dynasty.LIAO, dynasty_name: '遼', reign_title: '統和', year_num: '十八年' }
+        { dynasty: Dynasty.LIAO, dynasty_name: '遼', reign_title: '統和', year: 18, year_num: '十八年' }
       ]);
     });
 
@@ -757,14 +823,14 @@ describe('Options Tests', () => {
     it('should filter ROC correctly', () => {
       const result = convertYear(1912, { dynasty: Dynasty.ROC });
       expect(result).toEqual([
-        { dynasty: Dynasty.ROC, dynasty_name: '中華民國', reign_title: '民國', year_num: '元年' }
+        { dynasty: Dynasty.ROC, dynasty_name: '中華民國', reign_title: '民國', year: 1, year_num: '元年' }
       ]);
     });
 
     it('should not return ROC when filtering by Qing', () => {
       const result = convertYear(1912, { dynasty: Dynasty.QING });
       expect(result).toEqual([
-        { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '宣統', year_num: '四年' }
+        { dynasty: Dynasty.QING, dynasty_name: '清', reign_title: '宣統', year: 4, year_num: '四年' }
       ]);
     });
   });
@@ -781,7 +847,7 @@ describe('Options Tests', () => {
       // dynasty filter takes precedence over mainline mode
       const result = convertYear(690, { mode: 'mainline', dynasty: Dynasty.WU_ZHOU });
       expect(result).toEqual([
-        { dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周', reign_title: '天授', year_num: '元年' }
+        { dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周', reign_title: '天授', year: 1, year_num: '元年' }
       ]);
     });
   });

@@ -14,18 +14,18 @@ import { Dynasty, DynastyNameMap, MainlinePriority } from './dynasty';
  * ```ts
  * // 默认返回主线朝代年号
  * convertYear(690);
- * // [{ dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '載初', year_num: '二年' }]
+ * // [{ dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '載初', year: 2, year_num: '二年' }]
  *
  * // 返回所有年号
  * convertYear(690, { mode: 'all' });
  * // [
- * //   { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '載初', year_num: '二年' },
- * //   { dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周', reign_title: '天授', year_num: '元年' }
+ * //   { dynasty: Dynasty.TANG, dynasty_name: '唐', reign_title: '載初', year: 2, year_num: '二年' },
+ * //   { dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周', reign_title: '天授', year: 1, year_num: '元年' }
  * // ]
  *
  * // 只返回指定朝代的年号
  * convertYear(690, { dynasty: Dynasty.WU_ZHOU });
- * // [{ dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周', reign_title: '天授', year_num: '元年' }]
+ * // [{ dynasty: Dynasty.WU_ZHOU, dynasty_name: '武周', reign_title: '天授', year: 1, year_num: '元年' }]
  * ```
  */
 export function convertYear(year: number, opts: ConvertYearOptions = {}): EraResult[] {
@@ -58,6 +58,7 @@ export function convertYear(year: number, opts: ConvertYearOptions = {}): EraRes
         dynasty: era.dynasty,
         dynasty_name: DynastyNameMap[era.dynasty],
         reign_title: era.reign_title,
+        year: yearInEra,
         year_num: numberToChinese(yearInEra),
       });
     }
@@ -74,6 +75,7 @@ export function convertYear(year: number, opts: ConvertYearOptions = {}): EraRes
         dynasty: Dynasty.ROC,
         dynasty_name: DynastyNameMap[Dynasty.ROC],
         reign_title: '民國',
+        year: mingguoYear,
         year_num: numberToChinese(mingguoYear),
       });
     }
