@@ -11,7 +11,7 @@ A lightweight JavaScript/TypeScript library for converting Gregorian calendar ye
 
 ## Current Status
 
-**Beta Release (v0.3.0)**
+**Stable Release (v0.4.0)**
 
 This library now includes **complete era name coverage from 140 BCE to present**, covering all major Chinese dynasties and regimes:
 
