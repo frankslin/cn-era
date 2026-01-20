@@ -336,6 +336,10 @@ export const eraData: EraData[] = [
 
   // 安史之亂時期
   { dynasty: Dynasty.TANG, reign_title: '至德', start_year: 756, end_year: 758 },
+  {
+    // The dynasty of 聖武 is technically 大燕 but there's no such dynasty in CBDB.
+    dynasty: Dynasty.TANG, reign_title: '聖武', start_year: 756, end_year: 757
+  },
   { dynasty: Dynasty.TANG, reign_title: '乾元', start_year: 758, end_year: 760 },
   { dynasty: Dynasty.TANG, reign_title: '上元', start_year: 760, end_year: 762 },
   { dynasty: Dynasty.TANG, reign_title: '寶應', start_year: 762, end_year: 763 },
